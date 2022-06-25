@@ -8,8 +8,8 @@ It features
 
 https://streamable.com/gi07pe
 
-##How to use:
--Open it
--Add links
--Choose filetype
--convert
+## How to use:
+- Open it
+- Add links
+- Choose filetype
+- convert
