@@ -48,7 +48,7 @@ def downloader():
 
             elif wav == True:
                 for i in music_list:
-                    os.system(f"yt-dlp.exe -f ba -x --audio-format 'wav' {i} -o \"\download\%(title)s.%(ext)s\" ")
+                    os.system(f"yt-dlp.exe -f ba -x --audio-format wav {i} -o \"\download\%(title)s.%(ext)s\" ")
                 sg.popup(f"DONE!")
 
 
