@@ -5,15 +5,14 @@ import os
 
 def downloader():
     music_list = []
-    delete_list = []
-
+    sg.theme("DarkTeal")
     #define the layout
     layout = [
         [sg.Text("Input the Videolink:"), sg.InputText(key="-VIDEOLINK-", do_not_clear=False)],
-        [sg.Text("                            "), sg.Submit("Add", key="-ADD-", bind_return_key=True)],
+        [sg.Text("                            "), sg.Submit("Add", key="-ADD-", bind_return_key=True, button_color="red")],
         [sg.Text("Format                 "), sg.Radio("wav", key="-WAV-", group_id="format"), sg.Radio("mp3", key="-MP3-", group_id="format")],
         [sg.Text("                            "),sg.Listbox(values=[music_list], size=(45, 6), key="-LIST-")],
-        [sg.Submit("Convert", key="-CONVERT-"), sg.Cancel(), sg.Submit("Clear Last", key="-CLEAR_ALL-")]
+        [sg.Submit("Convert", key="-CONVERT-", button_color="red"), sg.Cancel(button_color="red"), sg.Submit("Clear Last", key="-CLEAR_ALL-", button_color="red")]
 
     ]
     #create instance of the window
@@ -24,6 +23,7 @@ def downloader():
         event, values = window.read()
         if event == sg.WINDOW_CLOSED or event == "Cancel":
             break
+        #only for debug purposes
         print(event, values["-VIDEOLINK-"], values["-WAV-"], values["-MP3-"])
         link = values["-VIDEOLINK-"]
         wav = values["-WAV-"]
@@ -44,8 +44,12 @@ def downloader():
                 for i in music_list:
                     os.system(f"yt-dlp.exe -f ba -x --audio-format mp3 {i} -o \"\download\%(title)s.%(ext)s\"") #yt-dlp.exe -f ba -x --audio-format mp3 https://www.youtube.com/watch?v=da9PDzt53WA -o "%(id)s.%(ext)s"
 
+                sg.popup(f"DONE!")
+
             elif wav == True:
-                os.system(f"yt-dlp.exe -f ba -x --audio-format 'wav' {link} -o \"%(title)s.%(ext)s\" ")
+                for i in music_list:
+                    os.system(f"yt-dlp.exe -f ba -x --audio-format 'wav' {i} -o \"\download\%(title)s.%(ext)s\" ")
+                sg.popup(f"DONE!")
 
 
     window.close()
