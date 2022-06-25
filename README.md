@@ -5,3 +5,11 @@ It features
 - Conversion to wav and mp3 (more soon!)
 - Filenames = Titles
 - Multiple downloads at once
+
+https://streamable.com/gi07pe
+
+##How to use:
+-Open it
+-Add links
+-Choose filetype
+-convert
