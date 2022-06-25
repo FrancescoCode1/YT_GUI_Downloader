@@ -5,6 +5,7 @@ It features
 - Conversion to wav and mp3 (more soon!)
 - Filenames = Titles
 - Multiple downloads at once
+- Playlists
 
 https://streamable.com/gi07pe
 
