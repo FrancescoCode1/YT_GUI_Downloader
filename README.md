@@ -5,14 +5,17 @@ It features
 - Conversion to wav and mp3 (more soon!)
 - Filenames = Titles
 - Multiple downloads at once
+- Playlists
 
 https://streamable.com/gi07pe
 
 ## How to use:
+- Make sure you have yt-dlp and ffmpeg in the same directory (or PATH)
 - Open it
 - Add links
 - Choose filetype
 - convert
+- Creates "download" folder and saves all music into it
 
 
 
