@@ -16,7 +16,9 @@ def downloader():
         [sg.Text("                            ", background_color="#262626"), sg.Listbox(values=[music_list], size=(45, 6), key="-LIST-")],
         [sg.Text("Path                     ", background_color="#262626"),  sg.InputText(key="-FILEPATH-", default_text="\\download\\", do_not_clear=True),
          sg.FolderBrowse("Save In", key="-SAVEIN-", target="-FILEPATH-")],
-        [sg.Text("                            ", background_color="#262626"), sg.Submit("Convert", key="-CONVERT-", button_color="red"), sg.Cancel(button_color="red"), sg.Submit("Clear Last", key="-CLEAR_ALL-", button_color="red"), ]
+        [sg.Text("                            ", background_color="#262626"), sg.Submit("Convert", key="-CONVERT-", button_color="red"), sg.Cancel(button_color="red"), sg.Submit("Clear Last", key="-CLEAR_ALL-", button_color="red")],
+        [sg.Text("Please make sure yt-dlp and ffmpeg is in PATH or installed in the same directory as this .exe", background_color="#262626")],
+        [sg.Text("Please dont use this programm to illegally download music or other copyrighted material, \ni take no responsibility for damages", background_color="#262626")]
     ]
 
     # create instance of the window
