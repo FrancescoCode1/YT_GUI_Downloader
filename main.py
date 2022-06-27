@@ -16,7 +16,7 @@ def downloader():
         [sg.Text("                            ", background_color="#262626"), sg.Listbox(values=[music_list], size=(45, 6), key="-LIST-")],
         [sg.Text("Path                     ", background_color="#262626"),  sg.InputText(key="-FILEPATH-", default_text="\\download\\", do_not_clear=True),
          sg.FolderBrowse("Save In", key="-SAVEIN-", target="-FILEPATH-")],
-        [sg.Submit("Convert", key="-CONVERT-", button_color="red"), sg.Cancel(button_color="red"), sg.Submit("Clear Last", key="-CLEAR_ALL-", button_color="red"), ]
+        [sg.Text("                            ", background_color="#262626"), sg.Submit("Convert", key="-CONVERT-", button_color="red"), sg.Cancel(button_color="red"), sg.Submit("Clear Last", key="-CLEAR_ALL-", button_color="red"), ]
     ]
 
     # create instance of the window
