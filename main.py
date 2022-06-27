@@ -63,7 +63,7 @@ def downloader():
 
             elif mp4:
                 for i in music_list:
-                    os.system(f"yt-dlp -f bv*+ba {i} -o \"\download\%(title)s.%(ext)s\" ")
+                    os.system(f"yt-dlp -f bv*+ba {i} -o \"\{fname}\%(title)s.%(ext)s\" ")
                 sg.popup(f"DONE!")
 
     window.close()
