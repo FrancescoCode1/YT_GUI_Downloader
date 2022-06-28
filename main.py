@@ -10,13 +10,13 @@ def downloader():
     layout = [
 
         [sg.Text("Input the Videolink:", background_color="#262626"), sg.InputText(key="-VIDEOLINK-", do_not_clear=False)],
-        [sg.Text("                            ", background_color="#262626"), sg.Submit("Add", key="-ADD-", bind_return_key=True, button_color="red")],
+        [sg.Text("                            ", background_color="#262626"), sg.Submit("Add", key="-ADD-", bind_return_key=True, button_color=("white", "red"))],
         [sg.Text("Format                 ", background_color="#262626"), sg.Radio("wav", key="-WAV-", group_id="format", background_color="#262626"),
          sg.Radio("mp3", key="-MP3-", group_id="format", background_color="#262626"), sg.Radio("mp4", key="-MP4-", group_id="format", background_color="#262626")],
         [sg.Text("                            ", background_color="#262626"), sg.Listbox(values=[music_list], size=(45, 6), key="-LIST-")],
         [sg.Text("Path                     ", background_color="#262626"),  sg.InputText(key="-FILEPATH-", default_text="\\download\\", do_not_clear=True),
          sg.FolderBrowse("Save In", key="-SAVEIN-", target="-FILEPATH-")],
-        [sg.Text("                            ", background_color="#262626"), sg.Submit("Convert", key="-CONVERT-", button_color="red"), sg.Cancel(button_color="red"), sg.Submit("Clear Last", key="-CLEAR_ALL-", button_color="red")],
+        [sg.Text("                            ", background_color="#262626"), sg.Submit("Convert", key="-CONVERT-", button_color=("white", "red")), sg.Cancel(button_color=("white", "red")), sg.Submit("Clear Last", key="-CLEAR_ALL-", button_color=("white", "red"))],
         [sg.Text("Please make sure yt-dlp and ffmpeg is in PATH or installed in the same directory as this .exe", background_color="#262626")],
         [sg.Text("Please dont use this programm to illegally download music or other copyrighted material, \ni take no responsibility for damages", background_color="#262626")]
     ]
