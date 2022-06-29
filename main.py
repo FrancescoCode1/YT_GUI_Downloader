@@ -3,12 +3,12 @@ import os
 
 
 def downloader():
+    # contains the music in the list
     music_list = []
     sg.theme("black")
 
     # define the layout
     layout = [
-
         [sg.Text("Input the Videolink:", background_color="#262626"), sg.InputText(key="-VIDEOLINK-", do_not_clear=False)],
         [sg.Text("                            ", background_color="#262626"), sg.Submit("Add", key="-ADD-", bind_return_key=True, button_color=("white", "red"))],
         [sg.Text("Format                 ", background_color="#262626"), sg.Radio("wav", key="-WAV-", group_id="format", background_color="#262626"),
@@ -29,30 +29,36 @@ def downloader():
         event, values = window.read()
         if event == sg.WINDOW_CLOSED or event == "Cancel":
             break
-        # only for debug purposes
-        # print(event, values["-VIDEOLINK-"], values["-WAV-"], values["-MP3-"])
 
-        link = values["-VIDEOLINK-"]
-        wav = values["-WAV-"]
-        mp3 = values["-MP3-"]
-        mp4 = values["-MP4-"]
-        fname = values["-FILEPATH-"]
+        link = values["-VIDEOLINK-"]  # link to the video
+        wav = values["-WAV-"]  # radio button selector for wav
+        mp3 = values["-MP3-"]  # radio button selector for mp3
+        mp4 = values["-MP4-"]  # radio button selector for mp4
+        fname = values["-FILEPATH-"]  # string filepath
 
         print(link, wav, mp4, mp3, fname)
+        # adds the link to the link list array
         if event == "-ADD-":
             music_list.append(link)  # values["-VIDEOLINK-"]
             window["-LIST-"].update(music_list)
-
+        # updates the filepath input box to the fname value
         if event == "-SAVEIN-":
-             # values["-VIDEOLINK-"]
+            # values["-VIDEOLINK-"]
             window["-FILEPATH-"].update(fname)
-
+        # clears the last entry (-1) from the array and updates the values in the visible list
         if event == "-CLEAR_ALL-":
             music_list = music_list[:-1]
             window["-LIST-"].update(music_list)
 
         if event == "-CONVERT-":
             print(music_list)
+
+            # music list must not be empty
+            if music_list == "":
+                sg.popup(f"Please insert link and press add")
+                pass
+
+            # essentially it passes each object in the list to the yt-dlp.exe
             if mp3:
                 for i in music_list:
                     os.system(f"yt-dlp.exe -f ba -x --audio-format mp3 {i} -o \"{fname}\%(title)s.%(ext)s\"") # yt-dlp.exe -f ba -x --audio-format mp3 https://www.youtube.com/watch?v=da9PDzt53WA -o "%(id)s.%(ext)s"
