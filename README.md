@@ -17,8 +17,7 @@ https://streamable.com/gi07pe
 - convert
 - Creates "download" folder and saves all music into it
 
+![Screenshot 2022-06-28 190311](https://user-images.githubusercontent.com/71893290/176240775-0b05f444-c532-4e56-8a74-368737f4ce51.png)
 
 
-
-https://user-images.githubusercontent.com/71893290/175787255-df5fb440-aec9-4c18-851f-30e3c8db4544.mp4
 
