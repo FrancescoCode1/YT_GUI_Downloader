@@ -1,23 +1,24 @@
 # YT_GUI_Downloader
-As the name suggests this is a Youtube GUI Downloader based on [yt-dlp](https://github.com/yt-dlp/yt-dlp) also requires ffmpeg
+As the name suggests this is a Youtube GUI Downloader based on [yt-dlp](https://github.com/yt-dlp/yt-dlp) and [ffmpeg](https://ffmpeg.org/download.html).
+
 
 It features 
-- Conversion to wav and mp3 (more soon!)
-- Filenames = Titles
-- Multiple downloads at once
-- Playlists
+- Conversion to wav, mp3 and mp4
+- It checks for the best possible quality and downloads it
+- No cryptic titles, it automatically names the files after the video title
+- Multiple downloads at once, add a whole playlist or many links or both
+- Easy to use straight forward interface. Choose your own download folder or use the default one
 
-https://streamable.com/gi07pe
+
 
 ## How to use:
 - Make sure you have yt-dlp and ffmpeg in the same directory (or PATH)
-- Open it
+- Open the converter
 - Add links
-- Choose filetype
+- Choose mp3, mp4 or wav
 - convert
-- Creates "download" folder and saves all music into it
+- Done!
 
-![Screenshot 2022-06-28 190311](https://user-images.githubusercontent.com/71893290/176240775-0b05f444-c532-4e56-8a74-368737f4ce51.png)
+![image](https://user-images.githubusercontent.com/71893290/176733117-72167276-de47-4903-9241-7741960b4409.png)
 
-
-
+Disclaimer: this software is not intended to encourage piracy, please use it within the tos of youtube
