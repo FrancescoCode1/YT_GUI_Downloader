@@ -1,10 +1,11 @@
 import PySimpleGUI as sg
 import os
 
+music_list = []
 
 def downloader():
     # contains the music in the list
-    music_list = []
+    global music_list
     sg.theme("black")
 
     # define the layout
@@ -31,6 +32,7 @@ def downloader():
         event, values = window.read()
         if event == sg.WINDOW_CLOSED or event == "Cancel":
             break
+
         pllink = values["-PLAYLIST-"]
         link = values["-VIDEOLINK-"]  # link to the video
         wav = values["-WAV-"]  # radio button selector for wav
@@ -38,63 +40,59 @@ def downloader():
         mp4 = values["-MP4-"]  # radio button selector for mp4
         fname = values["-FILEPATH-"]  # string filepath
 
-        print(link, wav, mp4, mp3, fname)
+
         # adds the link to the link list array
         # link now gets split if it contains &link. Usually in links from playlists
-        if event == "-ADD-":
-            split_link = link.split("&list", 1)
-            print(split_link)
-            normalized_link = split_link[0]
+        match event:
+            case "-ADD-":
+                split_link = link.split("&list", 1)
+                normalized_link = split_link[0]
+                music_list.append(normalized_link)  # values["-VIDEOLINK-"]
+                window["-LIST-"].update(music_list)
 
-            music_list.append(normalized_link)  # values["-VIDEOLINK-"]
-            window["-LIST-"].update(music_list)
+            case "-ADDPL-":
+                music_list.append(pllink)  # values["-VIDEOLINK-"]
+                window["-LIST-"].update(music_list)
 
-        # playlist support added
-        if event == "-ADDPL-":
-            music_list.append(pllink)  # values["-VIDEOLINK-"]
-            window["-LIST-"].update(music_list)
-        # updates the filepath input box to the fname value
-        if event == "-SAVEIN-":
-            # values["-VIDEOLINK-"]
-            window["-FILEPATH-"].update(fname)
-        # clears the last entry (-1) from the array and updates the values in the visible list
-        if event == "-CLEAR_ALL-":
-            music_list = music_list[:-1]
-            window["-LIST-"].update(music_list)
+            case "-SAVEIN-":
+                window["-FILEPATH-"].update(fname)
+            case "-OPDONE-":
+                music_list = music_list[:-1]
+                window["-LIST-"].update(music_list)
+            case "-CLEAR_ALL-":
+                music_list = music_list[:-1]
+                window["-LIST-"].update(music_list)
+            case "-CONVERT-":
 
-        if event == "-CONVERT-":
-            print(music_list)
+                # essentially it passes each object in the list to the yt-dlp.exe
+                # perform long operation prevents freezing of the screen
+                if mp3:
+                    for i in music_list:
+                        window.perform_long_operation(lambda:
+                                                      converter(i, fname, music_list, format="mp3"), "-OPDONE-")
 
-            # music list must not be empty
-            if music_list == "":
-                sg.popup(f"Please insert link and press add")
-                pass
+                elif wav:
+                    for i in music_list:
+                        window.perform_long_operation(lambda:
+                                                      converter(i, fname, music_list, format="wav"), "-OPDONE-")
 
-            # essentially it passes each object in the list to the yt-dlp.exe
-            # perform long operation prevents freezing of the screen
-            if mp3:
-                for i in music_list:
-                    window.perform_long_operation(lambda:
-                                                  converter(i, fname, format="mp3"), "-CANCEL-")
-                    # os.system(f"yt-dlp.exe -f ba -x --audio-format mp3 {i} -o \"{fname}\%(title)s.%(ext)s\"")
-
-            elif wav:
-                for i in music_list:
-                    window.perform_long_operation(lambda:
-                                                  converter(i, fname, format="wav"), "-CANCEL-")
-                    # os.system(f"yt-dlp.exe -f ba -x --audio-format wav {i} -o \"\{fname}\%(title)s.%(ext)s\" ")
-
-            elif mp4:
-                for i in music_list:
-                    window.perform_long_operation(lambda:
-                                                  converter(i, fname, format="mp4"), "-CANCEL-")
+                elif mp4:
+                    for i in music_list:
+                        window.perform_long_operation(lambda:
+                                                      converter(i, fname, music_list, format="mp4"), "-OPDONE-")
 
     window.close()
 
 
-def converter(i, fname, format):
-    os.system(f"yt-dlp.exe -f ba -x --audio-format {format} {i} -o \"{fname}\%(title)s.%(ext)s\"")
-    sg.popup(f"DONE!")
+def filelog(filepath):
+    print("\033[0;32;40msuccessfully\033[0;0m" + " downloaded "  + "to" + f" {filepath}")
+
+
+def converter(i, fname, musiclist, format):
+    os.system(f"yt-dlp.exe -i -f ba -x --audio-format {format} {i} -o \"{fname}\%(title)s.%(ext)s\"")
+    filelog(fname)
+    music_list = musiclist[:-1]
+    return music_list
 
 
 downloader()
